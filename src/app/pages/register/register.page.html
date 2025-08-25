@@ -1,5 +1,8 @@
 <ion-content [fullscreen]="true">
-  <form>
+  <form
+    [formGroup]="registerForm"
+    (ngSubmit)="doRegister()"
+  >
     <ion-card>
       <ion-card-content>
         <ion-row>
@@ -8,6 +11,7 @@
               type="text"
               label="Name"
               placeholder="jane"
+              [control]="name"
               ></app-input>
           </ion-col>
         </ion-row>
@@ -17,6 +21,7 @@
               type="text"
               label="Last name"
               placeholder="doe"
+              [control]="lastName"
               ></app-input>
           </ion-col>
         </ion-row>
@@ -26,6 +31,7 @@
               type="email"
               label="Email"
               placeholder="jane@doe.com"
+              [control]="email"
               ></app-input>
           </ion-col>
         </ion-row>
@@ -35,6 +41,7 @@
               type="password"
               label="Password"
               placeholder="***************"
+              [control]="password"
               ></app-input>
           </ion-col>
         </ion-row>
@@ -44,6 +51,7 @@
             type="submit"
             color="primary"
             value="Register"
+            [disabled]="registerForm.invalid"
             ></app-button>
           </ion-col>
         </ion-row>
