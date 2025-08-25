@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { IUser } from 'src/app/interfaces/user.interface';
+import { Storage } from 'src/app/shared/services/storage/storage';
 
 @Component({
   selector: 'app-register',
@@ -14,11 +17,28 @@ export class RegisterPage implements OnInit {
   public password!: FormControl;
   public registerForm!: FormGroup;
 
-  constructor() {
+  constructor(private readonly storageSrv: Storage, private readonly router: Router) {
     this.initForm();
   }
 
   ngOnInit() {}
+
+  public doRegister() {
+    console.log(this.registerForm.value);
+    let users = this.storageSrv.get<IUser[]>('users');
+    if(!users) {
+      users = [];
+    }
+
+    const exists = users.find(user => user.email === this.email.value);
+    if(exists) throw new Error('this email exist already.');
+
+    users.push(this.registerForm.value);
+
+    this.storageSrv.set('users', users);
+    this.registerForm.reset();
+    this.router.navigate(['/']);
+  }
 
   private initForm() {
     this.name = new FormControl('', [Validators.required]);
