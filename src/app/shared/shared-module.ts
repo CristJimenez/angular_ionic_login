@@ -5,14 +5,14 @@ import { InputComponent } from './components/input/input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonComponent } from './components/button/button.component';
 import { Storage } from './services/storage/storage';
+import { Toast } from './services/toast/toast';
 
 const modules = [ IonicModule, ReactiveFormsModule, FormsModule ]
-
-  const components = [ InputComponent, ButtonComponent ]
+const components = [ InputComponent, ButtonComponent ]
 
 @NgModule({
   declarations: [ ...components ],
-  providers: [ Storage ],
+  providers: [ Storage, Toast ],
   imports: [ CommonModule, ...modules ],
   exports: [ ...modules, ...components ]
 })
